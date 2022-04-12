@@ -38,12 +38,9 @@ namespace TVMaze.API.Controllers
         });
 
         #endregion
-        public TvShowController(ITVShowService service
-            //, IBusControl bus
-            )
+        public TvShowController(ITVShowService service)
         {
             _service = service;
-            //  _bus = bus;
             _fallbackPolicy = Policy<IActionResult>.Handle<Exception>().FallbackAsync(Content("We're experiencing some issue,Please try again later "));
         }
 
@@ -73,7 +70,6 @@ namespace TVMaze.API.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<TvShowWithCast>), StatusCodes.Status200OK)]
-        [LimitRequests(MaxRequests = 19, TimeWindow = 9)]
         public async Task<IEnumerable<TvShowWithCast>> GetAllTvShows(int page)
         {
             var emptyExecutionSlots = _bulkhead.BulkheadAvailableCount;
@@ -88,10 +84,6 @@ namespace TVMaze.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] TvShowWithCast show)
         {
-            //var uri = new Uri("rabbitmq://localhost/create_tvshow");
-            //var endpoint = await _bus.GetSendEndpoint(uri);
-
-            //await endpoint.Send(show);
             var addedProduct = await _service.AddTvShow(show);
             return Accepted("Added Show");
         }
