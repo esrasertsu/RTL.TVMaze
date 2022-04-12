@@ -1,6 +1,6 @@
 # RTL.TVMaze
 TVMaze Scrapper Operations<br>
-with Docker, Clean Architecture and Repository pattern implementing. <br>
+with .Net Core 6 ,Docker, Clean Architecture and Repository pattern implemented Microservice solution. <br>
 <p>&nbsp;</p>
 
 # Built With
