@@ -1,0 +1,17 @@
+version: '3.4'
+
+services:
+  tvshowsdb:
+    image: mongo
+
+  redisdb:
+    image: redis
+
+  tvmaze.api:
+    image: ${DOCKER_REGISTRY-}tvmazeapi
+    build:
+      context: .
+      dockerfile: TVMaze.API/Dockerfile
+
+volumes:
+  mongo_data: 

@@ -1,0 +1,29 @@
+version: '3.4'
+
+services:
+
+  tvshowsdb: 
+   container_name: tvshowsdb
+   restart: always
+   ports:
+     - "27017:27017"
+   volumes:
+     - mongo_data:/data/db
+
+  redisdb:
+    container_name: redisdb
+    restart: always
+    ports:
+      - "6379:6379"
+
+  tvmaze.api:
+    container_name: tvmaze.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "databaseSettings:ConnectionString=mongodb://tvshowsdb:27017"
+      - "CacheSettings__ConnectionString=redisdb:6379"
+    depends_on:
+      - tvshowsdb
+      - redisdb
+    ports:
+      - "8000:80"
