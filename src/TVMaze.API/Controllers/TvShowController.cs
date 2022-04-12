@@ -17,7 +17,6 @@ namespace TVMaze.API.Controllers
     public class TvShowController : ControllerBase
     {
         private ITVShowService _service { get; }
-       // private IBusControl _bus;
        private readonly AsyncFallbackPolicy<IActionResult> _fallbackPolicy;
        private static readonly int MAX_RETRY_COUNT = 1;
 
